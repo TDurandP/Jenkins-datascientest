@@ -15,6 +15,12 @@ pipeline {
                 checkout scm
             }
         }
+        
+        stage('Test Docker Access') {
+            steps {
+                sh 'docker info'
+            }
+        }
 
         stage('Build Docker Images') {
             steps {
