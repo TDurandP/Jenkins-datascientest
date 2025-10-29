@@ -38,14 +38,11 @@ pipeline {
                     string(credentialsId: 'DOCKERHUB_USERNAME', variable: 'DOCKERHUB_USERNAME'),
                     string(credentialsId: 'DOCKERHUB_PASSWORD', variable: 'DOCKERHUB_PASSWORD')
                 ]) {
-                    sh(
-                        script: '''
-                            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-                            docker push $IMAGE_MOVIE:latest
-                            docker push $IMAGE_CAST:latest
-                        ''',
-                        shell: '/bin/bash'
-                    )
+                    sh '''#!/bin/bash
+                    echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+                    docker push $IMAGE_MOVIE:latest
+                    docker push $IMAGE_CAST:latest
+                    '''
                 }
             }
         }
