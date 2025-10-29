@@ -31,7 +31,7 @@ pipeline {
 
         stage('Push Docker Images') {
             when {
-                branch 'master'
+                branch 'main'
             }
             steps {
                 withCredentials([
@@ -49,7 +49,7 @@ pipeline {
 
         stage('Manual Approval for Production') {
             when {
-                branch 'master'
+                branch 'main'
             }
             steps {
                 input message: 'Deploy to production?', ok: 'Deploy'
@@ -58,7 +58,7 @@ pipeline {
 
         stage('Deploy to Production (Helm)') {
             when {
-                branch 'master'
+                branch 'main'
             }
             steps {
                 sh "helm upgrade --install devops-prod ${CHART_PATH} --namespace prod --create-namespace -f ${CHART_PATH}/values.yaml"
